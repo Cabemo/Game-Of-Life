@@ -1,3 +1,8 @@
+/**************************
+ * Author: Emilio E. G. Cantón Bermúdez
+ * Date: 28/11/2019
+**************************/
+
 #include "gol.h"
 
 
@@ -48,7 +53,9 @@ void* evolveArea(void *args) {
 				info->copy->pixels[i][j].value = checkStatus(info->grid->pixels[i][j].value, live_neighbors);
 			}
 		}
-		barrier_wait(&barrier);
+		if(info->n_threads > 1) {
+			barrier_wait(&barrier);
+		}
 		for (size_t i = info->offset; i < info->offset + n_rows; i++)
 		{
 			for (size_t j = 0; j < info->grid->width; j++)
@@ -70,7 +77,9 @@ void* evolveArea(void *args) {
 			writePGMFile(output_filename, &c);
 		}
 	}
-	pthread_exit(NULL);
+	if(info->n_threads > 1) {
+		pthread_exit(NULL);
+	}
 }
 int checkNeighbors(image_t *grid, int row, int col) {
 	int live_neighbours = 0;

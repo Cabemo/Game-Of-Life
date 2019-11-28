@@ -1,3 +1,9 @@
+/**************************
+ * Author: Emilio E. G. Cantón Bermúdez
+ * Date: 28/11/2019
+**************************/
+
+
 #include <stdio.h>
 #include <omp.h>
 #include <stdlib.h>
@@ -33,11 +39,12 @@ int main(int argc, char const *argv[])
 		Validate number threads. It must be a 
 		multiple of grid.height
 	*/
-	if(grid.image.height % n_threads != 0){
+	if (grid.image.height % n_threads != 0) {
 		printf("Number of threads must have to divide the image exactly\n");
 		return 1;
 	}
 
+	//Get filename without extension
 	char *point, out_filename[4096];
 	point = strchr(in_filename, '.');
 	strncpy(out_filename, in_filename, point - in_filename);
@@ -87,12 +94,6 @@ int main(int argc, char const *argv[])
 			}
 		}
 	}
-
-	// Convert the ASCII format into Binary, to generate smaller images
-	// Change the P2 format to P5
-	sscanf("P2", "%s", copy.magic_number);
-	//negativePGM(&grid);
-	writePGMFile(out_filename, &copy);
 
 	return 0;
 }

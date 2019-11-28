@@ -2,15 +2,62 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(gdb) Launch",
+			"name": "Omp",
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/omp",
 			// "preLaunchTask": "gcc build active file",
 			"args": [
 				"Boards/padded_ig3.pgm",
-				"5",
-				"1"	
+				"400",
+				"10"	
+			],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"setupCommands": [
+				{
+					"description": "Enable pretty-printing for gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			]
+		},
+		{
+			"name": "Main",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/main",
+			// "preLaunchTask": "gcc build active file",
+			"args": [
+				"Boards/padded_ig3.pgm",
+				"400",
+				"10"	
+			],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"setupCommands": [
+				{
+					"description": "Enable pretty-printing for gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			]
+		},
+		{
+			"name": "Simple",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/simple",
+			// "preLaunchTask": "gcc build active file",
+			"args": [
+				"Boards/padded_ig3.pgm",
+				"10"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",

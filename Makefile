@@ -8,6 +8,7 @@ OBJECTS = mybarrier.o string_functions.o pgm_image.o gol.o
 DEPENDS = string_functions.h pgm_image.h mybarrier.h gol.h
 # The executable program to be created
 MAIN = main
+SIMPLE = simple
 OMP = omp
 ### Variables for the compilation rules ###
 # These should work for most projects, but can be modified when necessary
@@ -27,7 +28,11 @@ LDLIBS = -lm -fopenmp
 #   $<  = The first required file of the rule
 
 # Default rule
-all: $(MAIN) $(OMP)
+all: $(MAIN) $(OMP) $(SIMPLE)
+
+# Rule to make the executable
+$(SIMPLE): simple.o $(OBJECTS)
+	$(CC) $^ -o $@ $(LDFLAGS) $(LDLIBS)
 
 # Rule to make the executable
 $(MAIN): main.o $(OBJECTS)
@@ -43,6 +48,10 @@ $(OMP): omp.o $(OBJECTS)
 # Clear the compiled files
 clean:
 	rm -rf *.o $(MAIN)
-	
+
+clean_boards:
+	rm Boards/padded_ig30{1..9}*
+	rm Boards/padded_ig3{1..9}*
+
 # Indicate the rules that do not refer to a file
 .PHONY: clean all

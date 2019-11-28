@@ -1,3 +1,8 @@
+/**************************
+ * Author: Emilio E. G. Cantón Bermúdez
+ * Date: 28/11/2019
+**************************/
+
 #include <pthread.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,9 +1,7 @@
-/*
-    Simple program to use the pgm library
-
-    Gilberto Echeverria
-    17/11/2019
-*/
+/**************************
+ * Author: Emilio E. G. Cantón Bermúdez
+ * Date: 28/11/2019
+**************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,16 +13,14 @@
 int main(int argc, char const *argv[])
 {
 	int n_threads, n_generations;;
-	char *in_filename;
+	char in_filename[4096];
 	pgm_t grid, copy;
 
 	if(argc != 4) {
 		printf("Usage ./main [input_file.pgm] [number of threads] [number of generations]");
 	}
 
-	in_filename = malloc(4096);
-	// out_filename = malloc(4096);
-
+	//Get the intial values
 	sscanf(argv[1], "%s", in_filename);
 	sscanf(argv[2], "%d", &n_threads);
 	sscanf(argv[3], "%d", &n_generations);
@@ -46,13 +42,14 @@ int main(int argc, char const *argv[])
 		printf("Number of threads must have to divide the image exactly\n");
 		return 1;
 	}
-	//Initialize pthreads array;
+	//Declare pthreads array;
 	pthread_t threads[n_threads];
-	
+
+	//Get the file without extension	
 	char *point, path_filename_w_extension[4096];
 	point = strchr(in_filename, '.');
 	strncpy(path_filename_w_extension, in_filename, point - in_filename);
-	printf("%s\n", path_filename_w_extension);
+	//Start the parallel work
 	initializeThreads(threads, &grid.image, &copy.image, n_threads, n_generations, path_filename_w_extension);
 	return 0;
 }

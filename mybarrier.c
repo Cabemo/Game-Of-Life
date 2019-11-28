@@ -1,5 +1,13 @@
-//Code by madelgi on https://github.com/madelgi/game-of-life
-//
+/***********************************************
+ * Emilio E. G. Cantón Bermúdez
+ * I used this code because my compiler wouldn't
+ * let me import the pthread_barrier_t
+************************************************/
+/************************************************************
+ * Code by madelgi on https://github.com/madelgi/game-of-life
+*************************************************************/
+
+
 // This is a VERY rudimentary way to handle thread
 // barriers.
 //
