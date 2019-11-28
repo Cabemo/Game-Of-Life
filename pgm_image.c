@@ -220,7 +220,7 @@ void writePGMTextData(const pgm_t * pgm_image, FILE * file_ptr)
             fprintf(file_ptr, "%d", pgm_image->image.pixels[i][j].value);
             // Separate pixels in the same row with tabs
             if (j < pgm_image->image.width-1)
-                fprintf(file_ptr, "\t");
+                fprintf(file_ptr, " ");
             else
                 fprintf(file_ptr, "\n");
         }

@@ -22,5 +22,11 @@ int main()
     negativePGM(&image);
     writePGMFile(out_filename, &image);
 
+
+
+
+
+    sdasda
+
     return 0;
 }

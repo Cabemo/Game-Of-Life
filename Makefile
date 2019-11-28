@@ -3,18 +3,18 @@
 ### Variables for this project ###
 # These should be the only ones that need to be modified
 # The files that must be compiled, with a .o extension
-OBJECTS = change_image.o string_functions.o pgm_image.o
+OBJECTS = mybarrier.o string_functions.o pgm_image.o gol.o
 # The header files
-DEPENDS = string_functions.h pgm_image.h
+DEPENDS = string_functions.h pgm_image.h mybarrier.h gol.h
 # The executable program to be created
-MAIN = change_image
-
+MAIN = main
+OMP = omp
 ### Variables for the compilation rules ###
 # These should work for most projects, but can be modified when necessary
 # The compiler program to use
 CC = gcc
 # Options to use when compiling object files
-CFLAGS = -Wall -g -std=c99 -pedantic -fopenmp # -O2
+CFLAGS = -Wall -g -std=c99 -pedantic -fopenmp -pthread # -O2
 # Options to use for the final linking process
 # This one links the math library
 LDLIBS = -lm -fopenmp
@@ -27,10 +27,13 @@ LDLIBS = -lm -fopenmp
 #   $<  = The first required file of the rule
 
 # Default rule
-all: $(MAIN)
+all: $(MAIN) $(OMP)
 
 # Rule to make the executable
-$(MAIN): $(OBJECTS)
+$(MAIN): main.o $(OBJECTS)
+	$(CC) $^ -o $@ $(LDFLAGS) $(LDLIBS)
+
+$(OMP): omp.o $(OBJECTS)
 	$(CC) $^ -o $@ $(LDFLAGS) $(LDLIBS)
 
 # Rule to make the object files
