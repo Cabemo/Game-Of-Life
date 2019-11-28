@@ -87,59 +87,93 @@ int checkNeighbors(image_t *grid, int row, int col) {
 	//Center
 	if (row > 0 && col > 0 && row < grid->width - 1 && col < grid->height - 1)
 	{
-		live_neighbours += grid->pixels[row][col - 1].value;//Left
-		live_neighbours += grid->pixels[row - 1][col].value;//Up
-		live_neighbours += grid->pixels[row][col + 1].value;//Right
-		live_neighbours += grid->pixels[row + 1][col].value;//Down
+		live_neighbours += grid->pixels[row][col - 1].value; //Left
+		live_neighbours += grid->pixels[row - 1][col].value; //Up
+		live_neighbours += grid->pixels[row][col + 1].value; //Right
+		live_neighbours += grid->pixels[row + 1][col].value; //Down
+
+		live_neighbours += grid->pixels[row + 1][col - 1].value; //Left Down
+		live_neighbours += grid->pixels[row - 1][col + 1].value; //Right Up
+		live_neighbours += grid->pixels[row + 1][col + 1].value; //Right Down
+		live_neighbours += grid->pixels[row + 1][col - 1].value; //Left Down
 	}
 	//Top
 	else if (row == 0 && col > 0 && col < grid->width - 1)
 	{
-		live_neighbours += grid->pixels[row][col-1].value;//Left
-		live_neighbours += grid->pixels[grid->height - 1][col].value;//Up
-		live_neighbours += grid->pixels[row][col + 1].value;//Right
-		live_neighbours += grid->pixels[row + 1][col].value;//Down
+		live_neighbours += grid->pixels[row][col - 1].value;		  //Left
+		live_neighbours += grid->pixels[grid->height - 1][col].value; //Up
+		live_neighbours += grid->pixels[row][col + 1].value;		  //Right
+		live_neighbours += grid->pixels[row + 1][col].value;		  //Down
+
+		live_neighbours += grid->pixels[row + 1][col - 1].value;		  //Left Down
+		live_neighbours += grid->pixels[grid->height - 1][col + 1].value; // Right Up
+		live_neighbours += grid->pixels[row + 1][col + 1].value;		  //Right Down
+		live_neighbours += grid->pixels[grid->height - 1][col].value;	 //Left Down
 	}
 	//Right
 	else if (col == grid->width - 1 && row > 0 && row < grid->height - 1)
 	{
-		live_neighbours += grid->pixels[row][col - 1].value;//Left
-		live_neighbours += grid->pixels[row - 1][col].value;//Up
-		live_neighbours += grid->pixels[row][0].value;	//Right
-		live_neighbours += grid->pixels[row + 1][col].value;//Down
+		live_neighbours += grid->pixels[row][col - 1].value; //Left
+		live_neighbours += grid->pixels[row - 1][col].value; //Up
+		live_neighbours += grid->pixels[row][0].value;		 //Right
+		live_neighbours += grid->pixels[row + 1][col].value; //Down
+
+		live_neighbours += grid->pixels[row - 1][col - 1].value; //Left Up
+		live_neighbours += grid->pixels[row - 1][0].value;		 //Right Up
+		live_neighbours += grid->pixels[row + 1][0].value;		 //Right Down
+		live_neighbours += grid->pixels[row + 1][col - 1].value; //Left Down
 	}
 	//Bottom
 	else if (row == grid->height - 1 && col > 0 && col < grid->width - 1)
 	{
-		live_neighbours += grid->pixels[row][col - 1].value;//Left
-		live_neighbours += grid->pixels[row - 1][col].value;//Up
-		live_neighbours += grid->pixels[row][col + 1].value;//Right
-		live_neighbours += grid->pixels[0][col].value;//Down
+		live_neighbours += grid->pixels[row][col - 1].value; //Left
+		live_neighbours += grid->pixels[row - 1][col].value; //Up
+		live_neighbours += grid->pixels[row][col + 1].value; //Right
+		live_neighbours += grid->pixels[0][col].value;		 //Down
+
+		live_neighbours += grid->pixels[row - 1][col - 1].value; //Left Up
+		live_neighbours += grid->pixels[row - 1][col + 1].value; //Right Up
+		live_neighbours += grid->pixels[0][col + 1].value;		 //Right Down
+		live_neighbours += grid->pixels[0][col - 1].value;		 //Left Down
 	}
 	//Left
 	else if (col == 0 && row > 0 && row < grid->height - 1)
 	{
-		live_neighbours += grid->pixels[row][grid->width - 1].value;//Left
-		live_neighbours += grid->pixels[row - 1][col].value;//Up
-		live_neighbours += grid->pixels[row][col + 1].value;//Right
-		live_neighbours += grid->pixels[row + 1][col].value;//Down
+		live_neighbours += grid->pixels[row][grid->width - 1].value; //Left
+		live_neighbours += grid->pixels[row - 1][col].value;		 //Up
+		live_neighbours += grid->pixels[row][col + 1].value;		 //Right
+		live_neighbours += grid->pixels[row + 1][col].value;		 //Down
+
+		live_neighbours += grid->pixels[row - 1][grid->width - 1].value; //Left Up
+		live_neighbours += grid->pixels[row - 1][col + 1].value;		 //Right Up
+		live_neighbours += grid->pixels[row + 1][col + 1].value;		 //Right Down
+		live_neighbours += grid->pixels[row + 1][grid->width - 1].value; //Left Down
 	}
 	//Upper Left Corner
 	else if (row == 0 && col == 0)
 	{
-		live_neighbours += grid->pixels[row][grid->width - 1].value;//Left
+		live_neighbours += grid->pixels[row][grid->width - 1].value;  //Left
 		live_neighbours += grid->pixels[grid->height - 1][col].value; //Up
-		live_neighbours += grid->pixels[row][col + 1].value;//Right
-		live_neighbours += grid->pixels[row + 1][col].value;//Down
+		live_neighbours += grid->pixels[row][col + 1].value;		  //Right
+		live_neighbours += grid->pixels[row + 1][col].value;		  //Down
+
+		live_neighbours += grid->pixels[grid->height - 1][grid->width - 1].value; //Left Up
+		live_neighbours += grid->pixels[grid->height - 1][col + 1].value;		  //Right Up
+		live_neighbours += grid->pixels[row + 1][col + 1].value;				  //Right Down
+		live_neighbours += grid->pixels[row + 1][col - 1].value;				  //Left Down
 	}
 	//Upper Right Corner
 	else if (col == grid->width - 1 && row == 0)
 	{
-		live_neighbours += grid->pixels[row][col - 1].value; //Left
-		live_neighbours += grid->pixels[grid->height - 1][col].value;//Up
-		live_neighbours += grid->pixels[row][0].value;//Right
-		live_neighbours += grid->pixels[row + 1][col].value;//Down
-		
+		live_neighbours += grid->pixels[row][col - 1].value;		  //Left
+		live_neighbours += grid->pixels[grid->height - 1][col].value; //Up
+		live_neighbours += grid->pixels[row][0].value;				  //Right
+		live_neighbours += grid->pixels[row + 1][col].value;		  //Down
+
+		live_neighbours += grid->pixels[grid->height - 1][col - 1].value;		  //Left Up
+		live_neighbours += grid->pixels[grid->height - 1][0].value; //Right Up
+		live_neighbours += grid->pixels[row + 1][0].value;				  //Right Down
+		live_neighbours += grid->pixels[row + 1][col - 1].value;		  //Left Down
 	}
 	//Lower Left Corner
 	else if (col == 0 && row == grid->height - 1)
@@ -148,15 +182,24 @@ int checkNeighbors(image_t *grid, int row, int col) {
 		live_neighbours += grid->pixels[row - 1][col].value;//Up
 		live_neighbours += grid->pixels[row][col + 1].value;//Right
 		live_neighbours += grid->pixels[0][col].value;//Down
-		
+
+		live_neighbours += grid->pixels[row - 1][grid->width - 1].value; //Left Up
+		live_neighbours += grid->pixels[row - 1][col + 1].value;		 //Right Up
+		live_neighbours += grid->pixels[0][col + 1].value;		 //Right Down
+		live_neighbours += grid->pixels[0][col - 1].value;				 //Left Down
 	}
 	//Lower Right Corner
 	else
 	{
-		live_neighbours += grid->pixels[row][col - 1].value;//Left
-		live_neighbours += grid->pixels[row - 1][col].value;//Up
-		live_neighbours += grid->pixels[row][0].value;//Right
-		live_neighbours += grid->pixels[0][col].value;//Down
+		live_neighbours += grid->pixels[row][col - 1].value; //Left
+		live_neighbours += grid->pixels[row - 1][col].value; //Up
+		live_neighbours += grid->pixels[row][0].value;		 //Right
+		live_neighbours += grid->pixels[0][col].value;		 //Down
+
+		live_neighbours += grid->pixels[row - 1][col - 1].value; //Left Up
+		live_neighbours += grid->pixels[row - 1][col + 1].value; //Right Up
+		live_neighbours += grid->pixels[0][0].value;		 //Right Down
+		live_neighbours += grid->pixels[0][0].value;		 //Left Down
 	}
 
 	return live_neighbours;
